@@ -1,2 +1,2 @@
-# oracle-sql-practice-handex
-Oracle SQL practice queries and exercises
+# elchin_amirov_sql.handex
+Oracle 18 SQL practice queries and exercises
