@@ -1,0 +1,199 @@
+
+--case when ve where
+select 
+gormek istediklerimiz
+from
+table
+[where sertler]
+order by
+fetch
+
+select * from employees;
+select * from departments;
+
+20--Marketing
+60 IT
+80 Sales
+100 finance
+210 IT Support
+
+diger
+
+select e.department_id,
+case when department_id=20 then 'MARKETING'
+     when department_id=60 then 'IT'
+     when department_id=80 then 'Sales'
+     when department_id=100 then 'Finance'
+     when department_id=210 then 'IT Support'
+    else 'Diger'
+end as dep_name
+from employees e;
+
+
+
+select e.*,case when salary<5000 then '1ci derece'
+            when salary<10000 then '2ci derece'
+            else '3cu derece'
+      end as Grade
+ from employees e
+ where (case when salary<5000 then '1ci derece'
+            when salary<10000 then '2ci derece'
+            else '3cu derece'
+      end)='2ci derece'
+
+
+soyadinda a herifi olan ve employee_id si 100 150 arasinda olan    maas 2 qat
+salary 5000 ve 10000 arasinda olan ve dep_idsi 50-den boyuk olanlar  +100
+C  oldugu kimi qalsin
+
+select
+e.*,case when last_name like '%a%' and employee_id between 100 and 150 then salary*2
+         when salary between 5000 and 10000 and department_id>=50 then salary+100
+         else salary
+    end as Bonus
+from employees e;
+
+
+
+
+select e.*,salary*12 as illik_gelir from employees e
+where salary*12>10000
+order by illik_gelir asc
+
+select e.salary,e.first_name,e.last_name   from employees e;
+
+select employees.salary,employees.first_name,employees.last_name   from employees;
+
+select
+e.salary,
+e.employee_id,
+e.first_name
+from employees e
+where employee_id between 100 and 150
+order by salary;
+      
+   eger job_id it_progdursa ve maasi 5000 yuxaridirsa 'A'
+   50 ve 80 ci deplerde isleyen ve vergi odemeyenlere 'B'
+   diger
+   
+   select e.*,
+        case when job_id='IT_PROG' and salary>5000 then 'A'
+             when department_id in (50,80) and e.commission_pct is null then 'B'
+             else 'C'
+        end as Category_1
+   
+    from employees e
+    where (case when job_id='IT_PROG' and salary>5000 then 'A'
+             when department_id in (50,80) and e.commission_pct is null then 'B'
+             else 'C'
+        end )='C'
+   
+  -- case simple
+20--Marketing
+60 IT
+80 Sales
+100 finance
+
+select e.*,
+  case department_id when 20 then 'Marketing'
+                     when 80 then 'Sales'
+                     when 60 then 'IT'
+                     when 100 then 'Finance'
+                     else 'Diger'
+    end as dep_name_new
+ from employees e;
+   
+  --decode
+  select e.*,
+     decode(department_id,20,'MArketing',
+                          60,'IT',
+                          80,'Sales',
+                          100,'Finance',
+                          'Diger') as dep_name_decode--,
+        /*decode(currency,'AZN','MV',
+                                'XV')*/
+   from employees e;
+  
+  
+  select 10*5 as hesablama,'Orxan'  as ad from dual;
+  
+  select 'sql' from dual
+-----Character
+---Case Manipulation funksiyaları
+
+
+
+
+--dual cedveli
+
+--LOWER(column|expression)
+  select 'SQL',lower('SQL') as data from dual
+select * from employees
+ select first_name,
+        lower(first_name),
+        lower('First_name'),
+        100/5
+ from employees;
+  
+select e.*,lower(first_name) as ad from employees e
+where lower(first_name)='steven'
+
+select lower(first_name ||' ' ||last_name) as ad from employees e
+
+--UPPER(column|expression)
+select 'sql',upper('sql') from dual
+
+select last_name,upper(last_name) from employees
+where upper(last_name)='BLOOM'
+--INITCAP(column|expression)
+select initcap('orxan memmedov') from dual
+
+select email,initcap(email) from employees
+
+
+
+---Character-Manipulation funksiyaları
+--LENGTH(column|expression)
+select length('Oracle SQL') from dual
+
+select email,length(email) from employees
+
+select e.*,length(email||first_name) as uzunluq from employees e
+where length(email||first_name)>15
+--CONCAT(column1|expression1,column2|expression2)
+select  concat(concat(first_name,' '),last_name) as full_name
+from employees
+
+--SUBSTR(column|expression,n ,[,n])
+select '+994503957137' as nomre,
+       substr('+994503957137',1,4) as olke_kod,
+       0||substr('+994503957137',5),
+       substr('+994503957137',-5)
+from dual
+
+
+select substr(job_id,1,2) as birinci,
+       substr(job_id,4) as ikinci
+from employees
+
+ --CLERK ve MAN 
+ 
+ 
+ select * from employees
+ where lower(substr(job_id,4)) in ('clerk','man')
+ 
+ 
+
+--INSTR(column|expression,'string',[,m],[n])
+
+
+--adinda 2den cox s herifi olan isciler
+
+
+--LPAD(column|expression,n,'string')
+
+   
+--RPAD(column|expression,n,'string')
+
+
+--REPLACE(text,search_string,replacement_string)
