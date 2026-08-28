@@ -1,0 +1,124 @@
+--INSTR(column|expression,'string',[,m],[n])
+
+select 'Oracle SQL chox vacib bir sorgu dilidir. SQL-in novleri :SQL, MySQL,MSSQL' as text
+  from dual
+  
+select instr('Oracle SQL chox vacib bir sorgu dilidir.
+             SQL-in novleri :SQL, MySQL,MSSQL','SQL',1,6) as text
+  from dual  
+
+
+--adinda 2den cox s herifi olan isciler
+select lower(first_name),instr(lower(first_name),'s',1,2)
+  from employees
+  where instr(lower(first_name),'s',1,2)>0
+
+--LPAD(column|expression,n,'string')
+
+select lpad('Oracle',10,'*')
+  from dual
+ 
+select lpad('Oracle',4,'*')
+  from dual    
+--RPAD(column|expression,n,'string')
+select rpad('Oracle',10,'*')
+  from dual
+       
+--REPLACE(text,search_string,replacement_string)
+
+select replace(job_id,'_','/') from employees
+select replace(job_id,'_','') from employees
+
+
+
+
+--TRIM,LTRIM,RTRIM,--LEADING,TRAILING,BOTH
+ select '   SQL     ', trim('      SQL     ') from dual
+ 
+ select '*****SQL*****',
+ trim(leading '*' from '******SQL*******'),
+ trim (trailing '*' from '******SQL***PL**'),
+ trim (both '*' from '******SQL******'),
+ ltrim('****###!SQL****###!*','*#'),
+ rtrim(ltrim('****###SQL****###*','*#'),'*#')
+
+  from dual
+
+---Number functions
+--ROUND(column|expression,n)
+select round(1245.448),
+       round(1245.634),
+       round(1245.634,0),
+       round(1245.652,2),
+       round(1275.634,-2),
+       trunc(1245.448,-2)
+  from dual
+
+--TRUNC(column|expression,n)
+
+--MOD(m,n)
+select mod(5,3),mod(1,5) from dual
+
+select employee_id,
+case when mod(employee_id,2)=0 then 'cut'
+     else 'tek'
+     end as cut_tek 
+ from employees
+ where employee_id>1
+
+--POWER(m,n)
+select power(81,1/4) from dual
+
+--SQRT(n)
+
+select sqrt(64) from dual
+
+
+--FLOOR(n)
+select floor(1.0000000001) from dual
+
+
+--CEIL(1,2)
+select ceil(1.00000001) from dual
+
+--greatest
+
+select greatest(25,30) from dual
+
+
+select employee_id,salary,greatest(employee_id,salary) from employees
+
+-------------------------------------------------------------------------------------------------------
+
+
+date+5
+date-5
+date-date
+
+       
+---SYSDATE
+select sysdate,
+       sysdate+10,
+       sysdate-5,
+       sysdate+2/24,
+       sysdate+30/24/60/60
+ from dual
+ 
+ 
+ select first_name,
+        round((sysdate-hire_date)/365,1) as staj,
+        case when round((sysdate-hire_date)/365,1)<=30 then '30-a qeder'
+             when round((sysdate-hire_date)/365,1)>30 and round((sysdate-hire_date)/365,1)<=40 then '30-40'
+               else '40+'
+           end as staj_bolgu
+   from employees;
+
+--MONTHS_BETWEEN(date1, date2)
+ select abs(round(months_between(sysdate,sysdate+180))) from dual;
+
+select sysdate,hire_date,months_between(sysdate,hire_date)/12 as staj from employees
+
+--ADD_MONTHS(date,n)
+
+select add_months(sysdate,-6) from dual
+
